@@ -1,0 +1,32 @@
+.mxdTitle {
+  font-weight: bold;
+}
+.mxdAdditionalKey, .mxdAffiliation {
+  font-style: italic;
+}
+.mxdMetadata {
+  padding-top: 10px;
+}
+.mxdDatastreams {
+  clear:both;
+}
+.mxdDatastreams .mxdVideo,
+.mxdDatastreams .mxdSlides,
+.mxdDatastreams .mxdPaper {
+  float:left;
+  padding: 5px;
+}
+.mxdDatastreams .mxdVideo img,
+.mxdDatastreams .mxdSlides img,
+.mxdDatastreams .mxdPaper img {
+  margin: 5px;
+}
+.mxdDatastreams label {
+  font-weight: bold;
+}
+
+.mxdClear {
+  width: 100%;
+  clear: both;
+  border-bottom: 1px solid #bbb;
+}

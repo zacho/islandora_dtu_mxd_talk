@@ -1,0 +1,6 @@
+name = Islandora DTU MXD Conference Talk Solution Pack
+description = Islandora configurations for persisting and retrieving MXD Talk files
+dependencies[] = fedora_repository
+package = Islandora Solution Pack
+version = 11.2alpha1
+core = 6.x

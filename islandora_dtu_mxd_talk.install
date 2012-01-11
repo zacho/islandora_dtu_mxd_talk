@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ *
+ * Installs the required associations/forms.
+ */
+define('ISLANDORA_DTU_MXD_TALK_FORM_NAME', 'DTU MXD-DDF Talk Form');
+
+/**
+ * Implementation of hook_install.
+ */
+function islandora_dtu_mxd_talk_install() {
+  module_load_include('inc', 'xml_form_builder', 'XMLFormDatabase');
+  if (!XMLFormDatabase::Exists(ISLANDORA_DTU_MXD_TALK_FORM_NAME)) {
+    $module_path = drupal_get_path('module', 'islandora_dtu_mxd_talk');
+    $definition = new DOMDocument();
+    $definition->load($module_path . '/xml/mxd_talk_form.xml');
+    XMLFormDatabase::Create(ISLANDORA_DTU_MXD_TALK_FORM_NAME, $definition);
+  }
+  // Associates the form with the content model
+  $result = db_result(db_query('Select content_model from {islandora_content_model_forms} where  content_model = "%s" and form_name = "%s"', 'islandora:dtu_mxd_talk_cmodel', 'DTU MXD-DDF Talk Form'));
+  if (!$result) {
+    $object = new stdClass();
+    $object->content_model = 'islandora:dtu_mxd_talk_cmodel';
+    $object->form_name = 'DTU MXD-DDF Talk Form';
+    $object->dsid = 'MXD';
+    $object->title_field = "['title']['original']['main']";
+    $object->transform = 'mxd_to_dc.xsl';
+    $result = drupal_write_record('islandora_content_model_forms', $object);
+  }
+}
+
+/**
+ * Implementation of hook_uninstall.
+ */
+function islandora_dtu_mxd_talk_uninstall() {
+  module_load_include('inc', 'xml_form_builder', 'XMLFormDatabase');
+  if (XMLFormDatabase::Exists(ISLANDORA_DTU_MXD_TALK_FORM_NAME)) {
+    XMLFormDatabase::Delete(ISLANDORA_DTU_MXD_TALK_FORM_NAME);
+  }
+  $result = db_result(db_query('Select content_model from {islandora_content_model_forms} where content_model = "%s" and form_name = "%s"', 'islandora:dtu_mxd_talk_cmodel', 'DTU MXD-DDF Talk Form'));
+  if (!$result) {
+    db_query('DELETE FROM {islandora_content_model_forms} WHERE content_model = "%s" and form_name = "%s"', 'islandora:dtu_mxd_talk_cmodel', 'DTU MXD-DDF Talk Form');
+  }
+}
