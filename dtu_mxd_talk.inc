@@ -240,7 +240,14 @@ class TalkObjectHelper extends ObjectHelper {
   global $base_url;
     module_load_include('inc','fedora_repository','CollectionClass');
     $col_class = new CollectionClass($item->pid);
-    $related_items = $col_class->getRelatedItems($item->pid);
+    $itql_query_string = 'select $object $title $content from <#ri>
+                                 where ($object <dc:title> $title
+                                 and $object <fedora-model:hasModel> $content
+                                 and $object <fedora-rels-ext:isDerivationOf> <info:fedora/' . $item->pid . '>
+                                 and $object <fedora-model:state> <info:fedora/fedora-system:def/model#Active>)
+                                 minus $content <mulgara:is> <info:fedora/fedora-system:FedoraObject-3.0>
+                                 order by $title';
+    $related_items = $col_class->getRelatedItems($item->pid,$itql_query_string);
     
     $hasPaper = key_exists('OBJ', $item->datastreams);
     $hasSlide = false;
