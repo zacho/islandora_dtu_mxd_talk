@@ -1,4 +1,4 @@
-<content_model name="dtu_mxd_talk" xmlns="http://www.islandora.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.islandora.ca http://localhost/islandoracm.xsd">
+<content_model name="dtu_dc_video" xmlns="http://www.islandora.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.islandora.ca http://localhost/islandoracm.xsd">
   <mimetypes>
     <type>video/mp4</type>
     <type>video/mpeg</type>
